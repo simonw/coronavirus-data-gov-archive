@@ -1,0 +1,22 @@
+name: Fetch latest data and deploy with Datasette
+
+on:
+  push:
+  repository_dispatch:
+  schedule:
+    - cron:  '25 * * * *'
+
+jobs:
+  scheduled:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out this repo
+      uses: actions/checkout@v2
+    - name: Fetch latest data
+      run: ./fetch-data.sh
+    - name: Commit and push if it changed
+      run: |-
+        git add -A
+        timestamp=$(date -u)
+        git commit -m "Latest data: ${timestamp}" || exit 0
+        git push

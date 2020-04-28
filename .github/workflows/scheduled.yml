@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Check out this repo
       uses: actions/checkout@v2
+    - name: Show curl --version
+      run: bin/curl --version
     - name: Fetch latest data
       run: |-
         curl https://c19downloads.azureedge.net/downloads/data/data_latest.json | jq . > data_latest.json

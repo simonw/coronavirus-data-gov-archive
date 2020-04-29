@@ -12,16 +12,30 @@ jobs:
     steps:
     - name: Check out this repo
       uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - uses: actions/cache@v1
+      name: Configure pip caching
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    - name: Install Python dependencies
+      run: |
+        pip install -r requirements.txt
     - name: Fetch latest data
       run: |-
-        curl -vv --time-cond data_latest.json -o data_latest.json https://c19downloads.azureedge.net/downloads/data/data_latest.json
-        jq . data_latest.json
-        curl -vv --compressed --time-cond utlas.geojson -o utlas.geojson https://c19pub.azureedge.net/utlas.geojson
-        jq . utlas.geojson
-        curl -vv --compressed --time-cond countries.geojson -o countries.geojson https://c19pub.azureedge.net/countries.geojson
-        jq . countries.geojson
-        curl -vv --compressed --time-cond regions.geojson -o regions.geojson https://c19pub.azureedge.net/regions.geojson
-        jq . regions.geojson
+        conditional-get -v https://c19downloads.azureedge.net/downloads/data/data_latest.json
+        jq . data_latest.json > data_latest.json.tmp && mv data_latest.json.tmp data_latest.json
+        conditional-get -v utlas.geojson https://c19pub.azureedge.net/utlas.geojson
+        jq . utlas.geojson > utlas.geojson.tmp && mv utlas.geojson.tmp utlas.geojson
+        conditional-get -v countries.geojson https://c19pub.azureedge.net/countries.geojson
+        jq . countries.geojson > countries.geojson.tmp && mv countries.geojson.tmp countries.geojson
+        conditional-get -v regions.geojson https://c19pub.azureedge.net/regions.geojson
+        jq . regions.geojson > regions.geojson.tmp && mv regions.geojson.tmp regions.geojson
     - name: Commit and push if it changed
       run: |-
         git config user.name "Automated"

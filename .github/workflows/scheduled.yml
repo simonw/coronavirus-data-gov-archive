@@ -16,10 +16,14 @@ jobs:
       run: bin/curl --version
     - name: Fetch latest data
       run: |-
-        curl https://c19downloads.azureedge.net/downloads/data/data_latest.json | jq . > data_latest.json
-        curl https://c19pub.azureedge.net/utlas.geojson | gunzip | jq . > utlas.geojson
-        curl https://c19pub.azureedge.net/countries.geojson | gunzip | jq . > countries.geojson
-        curl https://c19pub.azureedge.net/regions.geojson | gunzip | jq . > regions.geojson
+        curl -vv --time-cond data_latest.json
+        jq . data_latest.json
+        curl -vv --compressed --time-cond utlas.geojson https://c19pub.azureedge.net/utlas.geojson
+        jq . utlas.geojson
+        curl -vv --compressed --time-cond countries.geojson https://c19pub.azureedge.net/countries.geojson
+        jq . countries.geojson
+        curl -vv --compressed --time-cond regions.geojson https://c19pub.azureedge.net/regions.geojson
+        jq . regions.geojson
     - name: Commit and push if it changed
       run: |-
         git config user.name "Automated"

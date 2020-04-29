@@ -30,11 +30,11 @@ jobs:
       run: |-
         conditional-get -v https://c19downloads.azureedge.net/downloads/data/data_latest.json
         jq . data_latest.json > data_latest.json.tmp && mv data_latest.json.tmp data_latest.json
-        conditional-get -v utlas.geojson https://c19pub.azureedge.net/utlas.geojson
+        conditional-get -v https://c19pub.azureedge.net/utlas.geojson
         jq . utlas.geojson > utlas.geojson.tmp && mv utlas.geojson.tmp utlas.geojson
-        conditional-get -v countries.geojson https://c19pub.azureedge.net/countries.geojson
+        conditional-get -v https://c19pub.azureedge.net/countries.geojson
         jq . countries.geojson > countries.geojson.tmp && mv countries.geojson.tmp countries.geojson
-        conditional-get -v regions.geojson https://c19pub.azureedge.net/regions.geojson
+        conditional-get -v https://c19pub.azureedge.net/regions.geojson
         jq . regions.geojson > regions.geojson.tmp && mv regions.geojson.tmp regions.geojson
     - name: Commit and push if it changed
       run: |-

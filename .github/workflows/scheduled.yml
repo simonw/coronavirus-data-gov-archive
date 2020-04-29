@@ -16,13 +16,13 @@ jobs:
       run: bin/curl --version
     - name: Fetch latest data
       run: |-
-        curl -vv --time-cond data_latest.json
+        curl -vv --time-cond data_latest.json -o data_latest.json https://c19downloads.azureedge.net/downloads/data/data_latest.json
         jq . data_latest.json
-        curl -vv --compressed --time-cond utlas.geojson https://c19pub.azureedge.net/utlas.geojson
+        curl -vv --compressed --time-cond utlas.geojson -o utlas.geojson https://c19pub.azureedge.net/utlas.geojson
         jq . utlas.geojson
-        curl -vv --compressed --time-cond countries.geojson https://c19pub.azureedge.net/countries.geojson
+        curl -vv --compressed --time-cond countries.geojson -o countries.geojson https://c19pub.azureedge.net/countries.geojson
         jq . countries.geojson
-        curl -vv --compressed --time-cond regions.geojson https://c19pub.azureedge.net/regions.geojson
+        curl -vv --compressed --time-cond regions.geojson -o regions.geojson https://c19pub.azureedge.net/regions.geojson
         jq . regions.geojson
     - name: Commit and push if it changed
       run: |-

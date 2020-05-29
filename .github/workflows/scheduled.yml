@@ -30,12 +30,14 @@ jobs:
       run: |-
         conditional-get -v https://c19downloads.azureedge.net/downloads/data/data_latest.json
         jq . data_latest.json > data_latest.json.tmp && mv data_latest.json.tmp data_latest.json
-        conditional-get -v https://c19pub.azureedge.net/utlas.geojson
-        jq . utlas.geojson > utlas.geojson.tmp && mv utlas.geojson.tmp utlas.geojson
-        conditional-get -v https://c19pub.azureedge.net/countries.geojson
-        jq . countries.geojson > countries.geojson.tmp && mv countries.geojson.tmp countries.geojson
-        conditional-get -v https://c19pub.azureedge.net/regions.geojson
-        jq . regions.geojson > regions.geojson.tmp && mv regions.geojson.tmp regions.geojson
+        conditional-get -v  https://c19pub.azureedge.net/assets/geo/utlas_v1.geojson
+        jq . utlas_v1.geojson > utlas.geojson.tmp && mv utlas.geojson.tmp utlas_v1.geojson
+        conditional-get -v https://c19pub.azureedge.net/assets/geo/countries_v1.geojson
+        jq . countries_v1.geojson > countries.geojson.tmp && mv countries.geojson.tmp countries_v1.geojson
+        conditional-get -v  https://c19pub.azureedge.net/assets/geo/regions_v1.geojson
+        jq . regions_v1.geojson > regions.geojson.tmp && mv regions.geojson.tmp regions_v1.geojson
+        conditional-get -v  https://c19pub.azureedge.net/assets/geo/ltlas_v1.geojson
+        jq . ltlas_v1.geojson > ltlas.geojson.tmp && mv ltlas.geojson.tmp ltlas_v1.geojson
     - name: Commit and push if it changed
       run: |-
         git config user.name "Automated"

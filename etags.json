@@ -2,5 +2,9 @@
     "https://c19downloads.azureedge.net/downloads/data/data_latest.json": "\"0x8D803EC7629EC0D\"",
     "https://c19pub.azureedge.net/utlas.geojson": "\"0x8D7DC68EE7B58EB\"",
     "https://c19pub.azureedge.net/countries.geojson": "\"0x8D7DC67E28D23E3\"",
-    "https://c19pub.azureedge.net/regions.geojson": "\"0x8D7DC68E29D7B89\""
+    "https://c19pub.azureedge.net/regions.geojson": "\"0x8D7DC68E29D7B89\"",
+    "https://c19pub.azureedge.net/assets/geo/utlas_v1.geojson": "\"0x8D7F209447C6028\"",
+    "https://c19pub.azureedge.net/assets/geo/countries_v1.geojson": "\"0x8D7F20939046237\"",
+    "https://c19pub.azureedge.net/assets/geo/regions_v1.geojson": "\"0x8D7F2093FEF53A0\"",
+    "https://c19pub.azureedge.net/assets/geo/ltlas_v1.geojson": "\"0x8D7F20932F5FCCA\""
 }
